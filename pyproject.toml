@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests/unit"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+#select = ["E", "F", "I", "B"]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]

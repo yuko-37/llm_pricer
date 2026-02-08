@@ -1,0 +1,14 @@
+name: llm_pricer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - pip
+  - python-dotenv
+  - jupyterlab
+  - pip:
+      - pytest
+      - matplotlib
+      - feedparser
+      - tqdm
