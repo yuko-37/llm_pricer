@@ -16,7 +16,7 @@ feed_urls = [
 
 
 class ScrapedDeal:
-    def __init__(self, entry: Dict[str, str]):
+    def __init__(self, entry: Dict[str, str | List[str]]):
         self.title = entry["title"].strip()
         self.summary = ScrapedDeal.extract(entry["summary"])
         self.url = entry["links"][0]["href"]
@@ -25,7 +25,9 @@ class ScrapedDeal:
         content = soup.find("div", class_="content-section").get_text()
         content = content.replace("\nmore", "").replace("\n", " ")
         if "Features" in content:
-            details, features = content.split("Features")
+            index = content.find("Features")
+            details = content[:index]
+            features = content[index + len("Features") :]
         else:
             details, features = content, ""
         self.details = details.strip()
