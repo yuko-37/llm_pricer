@@ -83,6 +83,29 @@ class TestScrapedDealInit:
         assert deal.features == "Test Features"
 
     @patch("deals.requests.get")
+    def test_init_basic_with_no_content(self, mock_requests):
+        """Test basic initialization of ScrapedDeal."""
+        # Setup mocks
+        mock_response = Mock()
+        mock_response.content = b"""
+            <html>No content</html>
+        """
+        mock_requests.return_value = mock_response
+        entry = {
+            "title": "  Test Title  ",
+            "summary": "<div class='snippet summary'>Test Summary</div>",
+            "links": [{"href": "https://example.com"}],
+        }
+
+        deal = ScrapedDeal(entry)
+
+        assert deal.title == "Test Title"
+        assert deal.url == "https://example.com"
+        assert mock_requests.called
+        assert deal.details == ""
+        assert deal.features == ""
+
+    @patch("deals.requests.get")
     def test_init_without_features(self, mock_requests):
         """Test initialization when Features section does not exist."""
         mock_response = Mock()
