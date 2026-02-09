@@ -7,8 +7,11 @@ dependencies:
   - pip
   - python-dotenv
   - jupyterlab
+  - requests
   - pip:
       - pytest
       - matplotlib
       - feedparser
+      - beautifulsoup4
       - tqdm
+      - openai
