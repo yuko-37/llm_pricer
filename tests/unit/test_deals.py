@@ -12,7 +12,7 @@ class TestScrapedDealExtract:
             This is a test description with some HTML
         </div>
         """
-        result = ScrapedDeal.extract(html_snippet)
+        result = ScrapedDeal.extract_summary(html_snippet)
         assert isinstance(result, str)
         assert "test description" in result
         assert "\n" not in result
@@ -20,7 +20,7 @@ class TestScrapedDealExtract:
     def test_extract_without_snippet_div(self):
         """Test extraction when snippet div is not present."""
         html_snippet = "This is plain HTML without snippet div"
-        result = ScrapedDeal.extract(html_snippet)
+        result = ScrapedDeal.extract_summary(html_snippet)
         assert result == "This is plain HTML without snippet div"
 
     def test_extract_removes_newlines(self):
@@ -32,13 +32,13 @@ class TestScrapedDealExtract:
             Line 3
         </div>
         """
-        result = ScrapedDeal.extract(html_snippet)
+        result = ScrapedDeal.extract_summary(html_snippet)
         assert "\n" not in result
 
     def test_extract_strips_whitespace(self):
         """Test that extract strips leading/trailing whitespace."""
         html_snippet = '<div class="snippet summary">   spaced text   </div>'
-        result = ScrapedDeal.extract(html_snippet)
+        result = ScrapedDeal.extract_summary(html_snippet)
         assert result.strip() == result
 
     def test_extract_with_html_tags(self):
@@ -48,7 +48,7 @@ class TestScrapedDealExtract:
             Text with <b>bold</b> and <i>italic</i> tags
         </div>
         """
-        result = ScrapedDeal.extract(html_snippet)
+        result = ScrapedDeal.extract_summary(html_snippet)
         assert "Text with" in result
         # HTML tags should be removed
         assert "<b>" not in result and "<i>" not in result
