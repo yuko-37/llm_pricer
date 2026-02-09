@@ -9,6 +9,7 @@ conda env create -f environment.yml
 use the command below to update environment
 ```bash
 conda env update --name llm_pricer --file=environment.yml --prune
+conda env update --name llm_pricer --file=environment.yml
 ```
 Activate the environment:<br/>
 ```bash
